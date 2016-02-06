@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sample db config -->
+<dbconfig>
+	<!-- Multiple database elements can be added as child of dbconfig. Where 
+		 dbname attribute is mandatory.
+		 
+		For example:- 
+		<database dbname="testdb"> 
+			<statement>ALTER TABLE user_profiles ADD createdDate date;</statement>
+			<statement>update user_profiles set password='admin' where username='admin';</statement>
+			.......
+			......
+		</database>
+		.....
+		.....
+		
+		Note: Here 'testdb' is the database name where the updation has to be done.
+	-->
+	<database dbname="users">
+		<statements>
+			<statement>ALTER TABLE user_profiles ADD dateOfBirth date;</statement>
+			<statement>ALTER TABLE user_profiles ADD createdBy varchar(20);</statement>
+			<statement>ALTER TABLE user_profiles ADD createdDate date;</statement>
+			<statement>update user_profiles set password='abhinav' where username='admin';</statement>
+			<statement>update user_profiles set password='password' where username='abhi';</statement>
+			<statement>update user_profiles set password='password' where username='ashu';</statement>
+		</statements>
+	</database>
+	<database dbname="test">
+		<statements>
+			<statement>ALTER TABLE Persons ADD DateOfBirth date;</statement>
+		</statements>
+	</database>
+</dbconfig>

@@ -1,0 +1,6 @@
+**********************
+THIRD PARTY COMPONENTS
+**********************
+
+mysql-connector-java-5.1.18-bin.jar -- https://dev.mysql.com/downloads/connector/j/5.0.html.
+MySQL open source software is provided under the GPL License.

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="about" name="Sample build to configure database">
+
+    <target name="about">
+      <echo>SQLConfig utility..</echo>
+    </target>
+    
+	<!-- You can also pass parameters at runtime. 
+	     -DdbConfig=/somepath/db-config.xml -DuserName=root -Dpassword=root -DdbUrl=jdbc:mysql://localhost:3306 -->
+	
+	<property name="dbConfig" value="sample-db-config.xml"/>
+	<property name="userName" value="root"/>
+	<property name="password" value="root"/>
+	<!-- No need to append the databse name in dbUrl, application will take care of it. provide dbName as 5th param-->
+	<!-- Possible values are, jdbc:mysql://localhost:3306, jdbc:sqlserver://localhost:1433 -->
+	<property name="dbUrl" value="jdbc:mysql://localhost:3306"/>
+	<!-- Possible values are mssql, mysql. App will consider default as mysql if not provided-->
+	<property name="dbVendor" value="mysql"/>
+	<property name="dbName" value=""/>
+
+	<target name="configure-db-via-app">
+		<echo>******Processing db configuration request******</echo>
+		<java classname="com.abhinav.sqlcfgutil.processor.SQLConfigProcessor">
+			<arg value="${dbConfig}" />
+			<arg value="${userName}" />
+			<arg value="${password}" />
+			<arg value="${dbUrl}" />
+			<arg value="${dbVendor}" />
+			<arg value="${dbName}" />
+			<classpath>
+				<pathelement location="${basedir}/lib/sql-config-utils.jar" />
+				<!-- MySQL Jar location-->
+				<pathelement
+					location="${basedir}/lib/mysql-connector-java-5.1.18-bin.jar" />
+				<!-- MSSQL Jar location-->
+				<!--<pathelement
+					 location="${basedir}/lib/sqljdbc4.jar" />-->
+			</classpath>
+		</java>
+	</target>
+
+	<target name="configure-db-via-script">
+		<echo>******Processing db configuration request******</echo>
+		<for param="line">
+			<tokens>
+				<file file="${basedir}/sql-lib/db-config-antonly.txt" />
+			</tokens>
+			<sequential>
+				<echo>@{line}</echo>
+				<trycatch>
+					<try>
+						<sql driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/users"
+							userid="root" password="root"
+							classpath="${basedir}/sql-lib/mysql-connector-java-5.1.18-bin.jar"
+							print="TRUE">
+							<transaction>
+								@{line}
+							</transaction>
+						</sql>
+					</try>
+					<catch>
+						<echo>Failed to execute the command!</echo>
+					</catch>
+				</trycatch>
+			</sequential>
+		</for>
+	</target>
+
+
+</project>

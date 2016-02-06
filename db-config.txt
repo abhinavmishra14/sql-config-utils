@@ -1,0 +1,3 @@
+ALTER TABLE user_profiles ADD dateOfBirth date;
+
+update user_profiles set password='administrator' where username='admin';
