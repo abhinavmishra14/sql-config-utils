@@ -45,7 +45,7 @@
 		<echo>******Processing db configuration request******</echo>
 		<for param="line">
 			<tokens>
-				<file file="${basedir}/lib/db-config-antonly.txt" />
+				<file file="db-config-antonly.txt" />
 			</tokens>
 			<sequential>
 				<echo>@{line}</echo>
