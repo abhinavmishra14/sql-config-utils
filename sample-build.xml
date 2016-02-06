@@ -39,6 +39,8 @@
 		</java>
 	</target>
 
+	<!-- This target can be used directly without using the tool. It is pretty straight forward. 
+	     It is an alternate option to configure database. -->
 	<target name="configure-db-via-script">
 		<echo>******Processing db configuration request******</echo>
 		<for param="line">
