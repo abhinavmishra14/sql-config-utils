@@ -6,4 +6,4 @@ e.g. Update/Alter some table in MySQL database once build is deployed based on n
 
 ###### It takes an XML file as input configuration and performs the operation based on configurations mapped in xml file. This tool is very useful for CI when you want to perform some operations on database tables after build deployment.
 
-###### Sample ANT script (available as part of this project) which can be used to trigger the SQLConfigProcessor. This tool supports MySQL and MSSQL configuration but can be extended based on need to support other RDBMS systems as well. 
+###### Sample ANT script (available as part of this project) can be used to trigger the SQLConfigProcessor. This tool supports MySQL and MSSQL configuration as of now. 
