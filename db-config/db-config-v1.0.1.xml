@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dbconfig>
+	<database dbname="users">
+		<statements>
+			<statement>ALTER TABLE user_profiles ADD dateOfBirth date;</statement>
+			<statement>ALTER TABLE user_profiles ADD createdBy varchar(20);</statement>
+			<statement>ALTER TABLE user_profiles ADD createdDate date;</statement>
+		</statements>
+	</database>
+</dbconfig>

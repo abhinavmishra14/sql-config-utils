@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dbconfig>
+	<database dbname="users">
+		<statements>
+			<statement>update user_profiles set password='abhinav' where username='admin';</statement>
+		</statements>
+	</database>
+</dbconfig>

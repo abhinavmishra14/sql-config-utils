@@ -1,24 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="about" name="Sample build to configure database">
+<project default="about" name="Build script to configure database">
 
     <target name="about">
       <echo>SQLConfig utility..</echo>
     </target>
-    
-	<!-- You can also pass parameters at runtime. 
-	     -DdbConfig=/somepath/db-config.xml -DuserName=root -Dpassword=root -DdbUrl=jdbc:mysql://localhost:3306 -->
 	
-	<property name="dbConfig" value="sample-db-config.xml"/>
-	<property name="userName" value="root"/>
-	<property name="password" value="root"/>
-	<!-- No need to append the databse name in dbUrl, application will take care of it. provide dbName as 5th param-->
-	<!-- Possible values are, jdbc:mysql://localhost:3306, jdbc:sqlserver://localhost:1433 -->
-	<property name="dbUrl" value="jdbc:mysql://localhost:3306"/>
-	<!-- Possible values are mssql, mysql. App will consider default as mysql if not provided-->
-	<property name="dbVendor" value="mysql"/>
-	<property name="dbName" value=""/>
-
-	<target name="configure-db-via-app">
+	<!-- Environment specific configuration, configure other environment specific targets as per need -->
+	<target name="local-environment">
+		<echo>Initializing local environment properties...</echo>
+		<property name="dbServerHost" value="localhost"/>
+		<property name="dbServerPort" value="3306"/>
+		<property name="userName" value="root"/>
+		<property name="password" value="root"/>
+		
+		<!-- Possible values are mssql, mysql. App will consider default as mysql if not provided-->
+		<property name="dbVendor" value="mysql"/>
+		<property name="dbName" value=""/>
+	</target>
+	
+	<target name="dev-environment">
+		<echo>Initializing development environment properties...</echo>
+		<property name="dbServerHost" value=""/>
+		<property name="dbServerPort" value="3306"/>
+		<property name="userName" value="root"/>
+		<property name="password" value="root"/>
+		
+		<!-- Possible values are mssql, mysql. App will consider default as mysql if not provided-->
+		<property name="dbVendor" value="mysql"/>
+		<property name="dbName" value=""/>
+	</target>
+    
+	<target name="init-dbconfig">
+		<fail unless="appVersion">
+			Please provide a valid appVersion. e.g. -DappVersion=v1.0.1
+		</fail>
+		<!-- Prepare path for actual db-config xml based on application version dynamically -->
+		<!-- Application version of the application which is deployed to any environment development/qa etc.
+		     Based on app version we will select the db configuration xml from db-config folder. 
+		     This way we will also maintain what changes has been done in previous app version -->
+		<!-- It can be provided at run time using -DappVersion=v1.0.1 -->
+		
+		<property name="dbConfig" value="${basedir}/db-config/db-config-${appVersion}.xml"/>
+		<!-- No need to append the databse name in dbUrl, application will take care of it. provide dbName as 5th param-->
+		<!-- Possible values are, jdbc:mysql://localhost:3306, jdbc:sqlserver://localhost:1433 -->
+		<property name="dbUrl" value="jdbc:mysql://${dbServerHost}:${dbServerPort}"/>
+	</target>
+	
+	<!-- You can also pass parameters at runtime. e.g.
+	     ant local-environment configure-db-via-app -DuserName=root -Dpassword=root
+	     -DdbServerHost=localhost -DdbServerPort=3306
+	     -DdbVendor=mysql -DdbName=test -DappVersion=v1.0.1 -->
+	<target name="configure-db-via-app" depends="init-dbconfig">
 		<echo>******Processing db configuration request******</echo>
 		<java classname="com.abhinav.sqlcfgutil.processor.SQLConfigProcessor">
 			<arg value="${dbConfig}" />

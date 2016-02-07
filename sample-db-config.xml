@@ -18,12 +18,7 @@
 	-->
 	<database dbname="users">
 		<statements>
-			<statement>ALTER TABLE user_profiles ADD dateOfBirth date;</statement>
-			<statement>ALTER TABLE user_profiles ADD createdBy varchar(20);</statement>
 			<statement>ALTER TABLE user_profiles ADD createdDate date;</statement>
-			<statement>update user_profiles set password='abhinav' where username='admin';</statement>
-			<statement>update user_profiles set password='password' where username='abhi';</statement>
-			<statement>update user_profiles set password='password' where username='ashu';</statement>
 		</statements>
 	</database>
 	<database dbname="test">
