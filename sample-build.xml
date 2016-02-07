@@ -60,7 +60,7 @@
 			<arg value="${dbVendor}" />
 			<arg value="${dbName}" />
 			<classpath>
-				<pathelement location="${basedir}/lib/sql-config-utils.jar" />
+				<pathelement location="${basedir}/jar/sql-config-utils.jar" />
 				<!-- MySQL Jar location-->
 				<pathelement
 					location="${basedir}/lib/mysql-connector-java-5.1.18-bin.jar" />
