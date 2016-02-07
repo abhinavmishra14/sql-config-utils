@@ -63,7 +63,7 @@ public class SQLConfigProcessor {
 				throw new IllegalArgumentException("Please provide the database url as a 4th agrument!");
 			}
 
-			
+			System.out.println("[SQLConfigProcessor:] DB Vendor is: "+dbVendor);
 			if (ConfigConstants.MSSQL_DBVENDOR.equals(dbVendor)) {
 				processMSSQLRequest(dbName, cfgPath, userName, password,
 						dbUrl.concat(ConfigConstants.FILE_SEPERATOR_LINUX).concat(ConfigConstants.MS_SQL_DBNAME_PREFIX).concat(dbName));
@@ -89,6 +89,7 @@ public class SQLConfigProcessor {
 	 */
 	public static void processMySQLRequest(final String dbName,final String cfgPath,
 			final String userName,final String password,final String dbUrl) throws Exception {
+		System.out.println("[SQLConfigProcessor:] Processing request for MySQL configuration..");
 		// Process MySql request
 		final MySQLConfigService mysqlExec = new MySQLConfigService(cfgPath,
 				dbName, userName, password, dbUrl);
@@ -107,6 +108,7 @@ public class SQLConfigProcessor {
 	 */
 	public static void processMSSQLRequest(final String dbName,final String cfgPath,
 			final String userName,final String password,final String dbUrl) throws Exception {
+		System.out.println("[SQLConfigProcessor:] Processing request for MicrosoftSQLServer configuration..");
 		// Process MySql request
 		final MySQLConfigService mysqlExec = new MySQLConfigService(cfgPath,
 				dbName, userName, password, dbUrl);
